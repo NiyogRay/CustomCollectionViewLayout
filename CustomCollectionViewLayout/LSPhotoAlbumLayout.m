@@ -116,4 +116,61 @@ static const NSString *LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
 }
 
 
+#pragma mark - Layout Attributes for Items in Rect
+
+- (NSArray *)layoutAttributesForElementsInRect:(CGRect)rect
+{
+    // attributes for cells present in rect
+    NSMutableArray *allAttributes = [NSMutableArray arrayWithCapacity:self.layoutInfo.count];
+    
+    // per layout dictionary (ATMO cells')
+    [self.layoutInfo enumerateKeysAndObjectsUsingBlock:^(NSString *elementIdentifier, NSDictionary *elementInfo, BOOL *stop)
+    {
+        // per cell's layout
+        [elementInfo enumerateKeysAndObjectsUsingBlock:^(NSIndexPath *indexPath, UICollectionViewLayoutAttributes *attributes, BOOL *innerStop)
+        {
+            // if cell is in rect
+            if (CGRectIntersectsRect(rect, attributes.frame))
+            {
+                // add cell's attributes to allAttributes
+                [allAttributes addObject:attributes];
+            }
+        }];
+    }];
+    
+    return allAttributes;
+}
+
+
+#pragma mark - Layout Attributes for Item
+
+- (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    // layoutInfo of item kind at indexPath
+    return self.layoutInfo[LSPhotoAlbumLayoutPhotoCellKind][indexPath];
+}
+
+
+#pragma mark - Overall ContentSize of CollectionView
+
+- (CGSize)collectionViewContentSize
+{
+    NSInteger rowCount = [self.collectionView numberOfSections] / self.numberOfColumns;
+    
+    // add any partially filled row
+    if ([self.collectionView numberOfSections] % self.numberOfColumns)
+        rowCount++;
+    
+    // content height
+    CGFloat height = self.itemInsets.top + rowCount*(self.itemSize.height) + (rowCount-1)*self.interItemSpacingY + self.itemInsets.bottom;
+    
+    // content width
+    CGFloat width = self.collectionView.bounds.size.width;
+    
+    CGSize contentSize = CGSizeMake( height, width );
+    
+    return contentSize;
+}
+
+
 @end
