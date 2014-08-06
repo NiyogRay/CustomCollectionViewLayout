@@ -8,6 +8,10 @@
 
 #import "LSPhotoAlbumLayout.h"
 
+static NSUInteger const RotationCount = 32;
+// use Stride to jump a few rotation values between sections
+static NSUInteger const RotationStride = 3;
+
 /// layout cell kind
 static NSString * const LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
 
@@ -16,6 +20,8 @@ static NSString * const LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
 
 /// layout info dictionary
 @property (nonatomic, strong) NSDictionary *layoutInfo;
+/// rotations
+@property (nonatomic, strong) NSArray *rotations;
 
 @end
 
@@ -45,10 +51,38 @@ static NSString * const LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
 
 - (void)setup
 {
+    // layout
     self.itemInsets = UIEdgeInsetsMake(22.f, 22.f, 13.f, 22.f);
     self.itemSize = CGSizeMake(125., 125.);
     self.interItemSpacingY = 12.;
     self.numberOfColumns = 2;
+    
+    // rotations
+    // create rotations at load so that they are consstent during prepareLayout
+    
+    NSMutableArray *rotations = [NSMutableArray arrayWithCapacity:RotationCount];
+    
+    CGFloat percentage = 0.;
+    
+    // per rotation
+    for (NSInteger i = 0; i < RotationCount; i++)
+    {
+        // ensure that each angle is different enough to be seen
+        CGFloat newPercentage = 0.;
+        do {
+            newPercentage = ((CGFloat)(arc4random() % 220) - 110) * 0.0001f;
+        } while (fabsf(percentage - newPercentage) < 0.006);
+        percentage = newPercentage;
+        
+        
+        CGFloat angle = 2 * M_PI * (1. + percentage);
+        CATransform3D transform = CATransform3DMakeRotation(angle, 0., 0., 1.);
+        
+        NSValue *rotationValue = [NSValue valueWithCATransform3D:transform];
+        [rotations addObject:rotationValue];
+    }
+    
+    _rotations = rotations;
 }
 
 
@@ -76,7 +110,11 @@ static NSString * const LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
             
             UICollectionViewLayoutAttributes *itemAttributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
             
+            // frame
             itemAttributes.frame = [self frameForAlbumPhotoAtIndexPath:indexPath];
+            
+            // transform
+            itemAttributes.transform3D = [self transformForAlbumPhotoAtIndexPath:indexPath];
             
             // store attributes by indexPath
             cellLayoutInfo[indexPath] = itemAttributes;
@@ -172,6 +210,18 @@ static NSString * const LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
     CGSize contentSize = CGSizeMake( width, height );
     
     return contentSize;
+}
+
+
+#pragma mark - 
+
+- (CATransform3D)transformForAlbumPhotoAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger offset = (indexPath.section * RotationStride  +  indexPath.item);
+    
+    CATransform3D transform = [ self.rotations[ offset % RotationCount ] CATransform3DValue ];
+    
+    return transform;
 }
 
 
