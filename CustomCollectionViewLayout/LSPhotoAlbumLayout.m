@@ -175,4 +175,50 @@ static NSString * const LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
 }
 
 
+#pragma mark - Setters for Properties
+
+- (void)setItemInsets:(UIEdgeInsets)itemInsets
+{
+    if (UIEdgeInsetsEqualToEdgeInsets(_itemInsets, itemInsets))
+        return;
+    
+    _itemInsets = itemInsets;
+    
+    [self invalidateLayout];
+}
+
+
+- (void)setItemSize:(CGSize)itemSize
+{
+    if (CGSizeEqualToSize(_itemSize, itemSize))
+        return;
+    
+    _itemSize = itemSize;
+    
+    [self invalidateLayout];
+}
+
+
+- (void)setInterItemSpacingY:(CGFloat)interItemSpacingY
+{
+    if (_interItemSpacingY == interItemSpacingY)
+        return;
+    
+    _interItemSpacingY = interItemSpacingY;
+    
+    [self invalidateLayout];
+}
+
+
+- (void)setNumberOfColumns:(NSInteger)numberOfColumns
+{
+    if (_numberOfColumns == numberOfColumns)
+        return;
+    
+    _numberOfColumns = numberOfColumns;
+    
+    [self invalidateLayout];
+}
+
+
 @end

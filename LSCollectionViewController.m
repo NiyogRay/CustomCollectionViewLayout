@@ -65,7 +65,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 
 
-#pragma mark - UICOllectionViewDataSource
+#pragma mark - UICollectionViewDataSource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -86,6 +86,32 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     LSAlbumPhotoCell *photoCell = [collectionView dequeueReusableCellWithReuseIdentifier:PhotoCellIdentifier forIndexPath:indexPath];
     
     return photoCell;
+}
+
+
+#pragma mark - Rotation
+
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                duration:(NSTimeInterval)duration
+{
+    // Landscape
+    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation))
+    {
+        // 3 column
+        self.photoAlbumLayout.numberOfColumns = 3;
+        
+        // TODO: Make generic
+        // insets for 3.5" or 4"
+        CGFloat sideInset = (([UIScreen mainScreen].preferredMode.size.width == 1136.) ? 45. : 25.);
+        
+        self.photoAlbumLayout.itemInsets = UIEdgeInsetsMake(22., sideInset, 22., sideInset);
+    }
+    else
+    {
+        self.photoAlbumLayout.numberOfColumns = 2;
+        self.photoAlbumLayout.itemInsets = UIEdgeInsetsMake(22., 22., 13., 22.);
+    }
 }
 
 
