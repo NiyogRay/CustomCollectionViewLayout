@@ -16,8 +16,11 @@ static NSUInteger const RotationStride = 3;
 // Use it to keep cell on top of others.
 static NSUInteger const PhotoCellBaseZIndex = 100;
 
-/// layout cell kind
 static NSString * const LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
+
+// splitting up the definition & setting
+// ensures consumers use the constant, not the specific value
+NSString * const LSPhotoAlbumLayoutAlbumTitleKind = @"AlbumTitle";
 
 /// Private interface
 @interface LSPhotoAlbumLayout ()
@@ -60,6 +63,7 @@ static NSString * const LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
     self.itemSize = CGSizeMake(125., 125.);
     self.interItemSpacingY = 12.;
     self.numberOfColumns = 2;
+    self.titleHeight = 26.;
     
     // rotations
     // create rotations at load so that they are consistent during prepareLayout
@@ -97,6 +101,7 @@ static NSString * const LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
     // cell layout info
     NSMutableDictionary *newLayoutInfo = [NSMutableDictionary dictionary];
     NSMutableDictionary *cellLayoutInfo = [NSMutableDictionary dictionary];
+    NSMutableDictionary *titleLayoutInfo = [NSMutableDictionary dictionary];
     
     // sectionCount
     NSInteger sectionCount = [self.collectionView numberOfSections];
@@ -125,6 +130,16 @@ static NSString * const LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
             
             // store attributes by indexPath
             cellLayoutInfo[indexPath] = itemAttributes;
+            
+            // add supplementary attribute for album title
+            if (indexPath.item == 0)
+            {
+                UICollectionViewLayoutAttributes *titleAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:LSPhotoAlbumLayoutALbumTitleKind withIndexPath:indexPath];
+                
+                titleAttributes.frame = [self frameForAlbumPhotoAtIndexPath:indexPath];
+                
+                titleLayoutInfo[indexPath] = titleAttributes;
+            }
         }
     }
     
@@ -273,6 +288,17 @@ static NSString * const LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
         return;
     
     _numberOfColumns = numberOfColumns;
+    
+    [self invalidateLayout];
+}
+
+
+- (void)setTitleHeight:(CGFloat)titleHeight
+{
+    if (_titleHeight == titleHeight)
+        return;
+    
+    _titleHeight = titleHeight;
     
     [self invalidateLayout];
 }
