@@ -1,5 +1,5 @@
 //
-//  LSViewController.h
+//  LSPhotoAlbumLayout.h
 //  CustomCollectionViewLayout
 //
 //  Created by Niyog Ray on 06/08/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LSViewController : UIViewController
+@interface LSPhotoAlbumLayout : UICollectionViewLayout
 
 @end

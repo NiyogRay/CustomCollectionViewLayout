@@ -14,13 +14,14 @@
 		B5E494771992043D00485FA3 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E494761992043D00485FA3 /* main.m */; };
 		B5E4947B1992043D00485FA3 /* LSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E4947A1992043D00485FA3 /* LSAppDelegate.m */; };
 		B5E4947E1992043D00485FA3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5E4947C1992043D00485FA3 /* Main.storyboard */; };
-		B5E494811992043D00485FA3 /* LSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E494801992043D00485FA3 /* LSViewController.m */; };
 		B5E494831992043D00485FA3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B5E494821992043D00485FA3 /* Images.xcassets */; };
 		B5E4948A1992043D00485FA3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E494891992043D00485FA3 /* XCTest.framework */; };
 		B5E4948B1992043D00485FA3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E4946A1992043D00485FA3 /* Foundation.framework */; };
 		B5E4948C1992043D00485FA3 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E4946E1992043D00485FA3 /* UIKit.framework */; };
 		B5E494941992043D00485FA3 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B5E494921992043D00485FA3 /* InfoPlist.strings */; };
 		B5E494961992043D00485FA3 /* CustomCollectionViewLayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E494951992043D00485FA3 /* CustomCollectionViewLayoutTests.m */; };
+		B5E494A1199204C700485FA3 /* LSCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E494A0199204C700485FA3 /* LSCollectionViewController.m */; };
+		B5E494A61992052600485FA3 /* LSPhotoAlbumLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E494A51992052600485FA3 /* LSPhotoAlbumLayout.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,14 +46,16 @@
 		B5E494791992043D00485FA3 /* LSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSAppDelegate.h; sourceTree = "<group>"; };
 		B5E4947A1992043D00485FA3 /* LSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSAppDelegate.m; sourceTree = "<group>"; };
 		B5E4947D1992043D00485FA3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B5E4947F1992043D00485FA3 /* LSViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LSViewController.h; sourceTree = "<group>"; };
-		B5E494801992043D00485FA3 /* LSViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LSViewController.m; sourceTree = "<group>"; };
 		B5E494821992043D00485FA3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B5E494881992043D00485FA3 /* CustomCollectionViewLayoutTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CustomCollectionViewLayoutTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5E494891992043D00485FA3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		B5E494911992043D00485FA3 /* CustomCollectionViewLayoutTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CustomCollectionViewLayoutTests-Info.plist"; sourceTree = "<group>"; };
 		B5E494931992043D00485FA3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		B5E494951992043D00485FA3 /* CustomCollectionViewLayoutTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomCollectionViewLayoutTests.m; sourceTree = "<group>"; };
+		B5E4949F199204C700485FA3 /* LSCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LSCollectionViewController.h; path = ../LSCollectionViewController.h; sourceTree = "<group>"; };
+		B5E494A0199204C700485FA3 /* LSCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSCollectionViewController.m; path = ../LSCollectionViewController.m; sourceTree = "<group>"; };
+		B5E494A41992052600485FA3 /* LSPhotoAlbumLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPhotoAlbumLayout.h; sourceTree = "<group>"; };
+		B5E494A51992052600485FA3 /* LSPhotoAlbumLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPhotoAlbumLayout.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,11 +115,11 @@
 		B5E494701992043D00485FA3 /* CustomCollectionViewLayout */ = {
 			isa = PBXGroup;
 			children = (
+				B5E494A31992050B00485FA3 /* Layout */,
+				B5E494A2199204D600485FA3 /* View Controller */,
 				B5E494791992043D00485FA3 /* LSAppDelegate.h */,
 				B5E4947A1992043D00485FA3 /* LSAppDelegate.m */,
 				B5E4947C1992043D00485FA3 /* Main.storyboard */,
-				B5E4947F1992043D00485FA3 /* LSViewController.h */,
-				B5E494801992043D00485FA3 /* LSViewController.m */,
 				B5E494821992043D00485FA3 /* Images.xcassets */,
 				B5E494711992043D00485FA3 /* Supporting Files */,
 			);
@@ -150,6 +153,24 @@
 				B5E494921992043D00485FA3 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B5E494A2199204D600485FA3 /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B5E4949F199204C700485FA3 /* LSCollectionViewController.h */,
+				B5E494A0199204C700485FA3 /* LSCollectionViewController.m */,
+			);
+			name = "View Controller";
+			sourceTree = "<group>";
+		};
+		B5E494A31992050B00485FA3 /* Layout */ = {
+			isa = PBXGroup;
+			children = (
+				B5E494A41992052600485FA3 /* LSPhotoAlbumLayout.h */,
+				B5E494A51992052600485FA3 /* LSPhotoAlbumLayout.m */,
+			);
+			name = Layout;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,9 +271,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5E494A1199204C700485FA3 /* LSCollectionViewController.m in Sources */,
 				B5E494771992043D00485FA3 /* main.m in Sources */,
 				B5E4947B1992043D00485FA3 /* LSAppDelegate.m in Sources */,
-				B5E494811992043D00485FA3 /* LSViewController.m in Sources */,
+				B5E494A61992052600485FA3 /* LSPhotoAlbumLayout.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,6 +479,7 @@
 				B5E4949B1992043D00485FA3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B5E4949C1992043D00485FA3 /* Build configuration list for PBXNativeTarget "CustomCollectionViewLayoutTests" */ = {
 			isa = XCConfigurationList;
@@ -465,6 +488,7 @@
 				B5E4949E1992043D00485FA3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
