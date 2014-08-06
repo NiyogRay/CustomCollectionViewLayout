@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-UIKIT_EXTERN NSString * const LSPhotoAlbumLayoutALbumTitleKind;
+UIKIT_EXTERN NSString * const LSPhotoAlbumLayoutAlbumTitleKind;
 
 @interface LSPhotoAlbumLayout : UICollectionViewLayout
 

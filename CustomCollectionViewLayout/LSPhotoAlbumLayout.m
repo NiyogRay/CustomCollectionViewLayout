@@ -134,7 +134,7 @@ NSString * const LSPhotoAlbumLayoutAlbumTitleKind = @"AlbumTitle";
             // add supplementary attribute for album title
             if (indexPath.item == 0)
             {
-                UICollectionViewLayoutAttributes *titleAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:LSPhotoAlbumLayoutALbumTitleKind withIndexPath:indexPath];
+                UICollectionViewLayoutAttributes *titleAttributes = [UICollectionViewLayoutAttributes layoutAttributesForSupplementaryViewOfKind:LSPhotoAlbumLayoutAlbumTitleKind withIndexPath:indexPath];
                 
                 titleAttributes.frame = [self frameForAlbumPhotoAtIndexPath:indexPath];
                 
@@ -147,10 +147,13 @@ NSString * const LSPhotoAlbumLayoutAlbumTitleKind = @"AlbumTitle";
     newLayoutInfo[LSPhotoAlbumLayoutPhotoCellKind] = cellLayoutInfo;
     
     self.layoutInfo = newLayoutInfo;
+    
+    // set the titleLayoutInfo on the top level dictionary
+    newLayoutInfo[LSPhotoAlbumLayoutAlbumTitleKind] = titleLayoutInfo;
 }
 
 
-#pragma mark - Cell Frame as per Layout
+#pragma mark - Frame
 
 - (CGRect)frameForAlbumPhotoAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -169,12 +172,22 @@ NSString * const LSPhotoAlbumLayoutAlbumTitleKind = @"AlbumTitle";
     CGFloat originX = floorf(self.itemInsets.left + (self.itemSize.width + spacingX) * column);
     
     CGFloat originY = floor(self.itemInsets.top +
-                            (self.itemSize.height + self.interItemSpacingY) * row);
+                            (self.itemSize.height + self.titleHeight + self.interItemSpacingY) * row);
     
     // frame
     CGRect cellFrame = CGRectMake(originX, originY, self.itemSize.width, self.itemSize.height);
     
     return cellFrame;
+}
+
+
+- (CGRect)frameForAlbumTitleAtIndexPath:(NSIndexPath *)indexPath
+{
+    CGRect frame = [self frameForAlbumPhotoAtIndexPath:indexPath];
+    frame.origin.y += frame.size.height;
+    frame.size.height = self.titleHeight;
+    
+    return frame;
 }
 
 
@@ -213,6 +226,13 @@ NSString * const LSPhotoAlbumLayoutAlbumTitleKind = @"AlbumTitle";
 }
 
 
+- (UICollectionViewLayoutAttributes *)layoutAttributesForSupplementaryViewOfKind:(NSString *)kind 
+atIndexPath:(NSIndexPath *)indexPath
+{
+    return self.layoutInfo[LSPhotoAlbumLayoutAlbumTitleKind][indexPath];
+}
+
+
 #pragma mark - Overall ContentSize of CollectionView
 
 - (CGSize)collectionViewContentSize
@@ -224,7 +244,7 @@ NSString * const LSPhotoAlbumLayoutAlbumTitleKind = @"AlbumTitle";
         rowCount++;
     
     // content height
-    CGFloat height = self.itemInsets.top + rowCount*self.itemSize.height + (rowCount-1)*self.interItemSpacingY + self.itemInsets.bottom;
+    CGFloat height = self.itemInsets.top + rowCount*self.itemSize.height + rowCount*self.titleHeight + (rowCount-1)*self.interItemSpacingY + self.itemInsets.bottom;
     
     // content width
     CGFloat width = self.collectionView.bounds.size.width;
