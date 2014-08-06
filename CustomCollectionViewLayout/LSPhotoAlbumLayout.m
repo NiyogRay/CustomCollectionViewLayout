@@ -58,7 +58,7 @@ static NSString * const LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
     self.numberOfColumns = 2;
     
     // rotations
-    // create rotations at load so that they are consstent during prepareLayout
+    // create rotations at load so that they are consistent during prepareLayout
     
     NSMutableArray *rotations = [NSMutableArray arrayWithCapacity:RotationCount];
     

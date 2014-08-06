@@ -57,7 +57,7 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
         LSAlbum *album = [[LSAlbum alloc] init];
         album.name = [NSString stringWithFormat:@"Photo Album %d", a + 1];
         
-        NSUInteger photoCount = 1;
+        NSUInteger photoCount = arc4random_uniform(4) + 2;
         
         for (NSInteger p = 0; p < photoCount; p++)
         {
@@ -117,6 +117,9 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
             }
         });
     }];
+    
+    // give priority to top photo in album
+    operation.queuePriority = (indexPath.item == 0 ? NSOperationQueuePriorityHigh : NSOperationQueuePriorityNormal);
     
     [self.thumbnailQueue addOperation:operation];
     
