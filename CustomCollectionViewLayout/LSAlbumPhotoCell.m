@@ -7,6 +7,14 @@
 //
 
 #import "LSAlbumPhotoCell.h"
+#import <QuartzCore/QuartzCore.h>
+
+@interface LSAlbumPhotoCell ()
+
+// Redefine as readwrite privately
+@property (nonatomic, strong, readwrite) UIImageView *imageView;
+
+@end
 
 @implementation LSAlbumPhotoCell
 
@@ -15,18 +23,38 @@
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.backgroundColor = [UIColor colorWithWhite:.85 alpha:1.];
+        [self setup];
     }
     return self;
 }
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect
+
+- (void)setup
 {
-    // Drawing code
+    // bgColor
+    self.backgroundColor = [UIColor colorWithWhite:.85 alpha:1.];
+    
+    // border
+    self.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.layer.borderWidth = 1.;
+    // shadow
+    self.layer.shadowColor = [UIColor blackColor].CGColor;
+    self.layer.shadowRadius = 3.;
+    self.layer.shadowOffset = CGSizeMake(0., 2.);
+    self.layer.shadowOpacity = .5;
+    // imageView
+    self.imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+    self.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.imageView.clipsToBounds = YES;
+    [self.contentView addSubview:self.imageView];
 }
-*/
+
+// Reset any previous content of cell when reused
+- (void)prepareForReuse
+{
+    [super prepareForReuse];
+    
+    self.imageView.image = nil;
+}
 
 @end

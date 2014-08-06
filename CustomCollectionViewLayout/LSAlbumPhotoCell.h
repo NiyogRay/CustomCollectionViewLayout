@@ -10,4 +10,9 @@
 
 @interface LSAlbumPhotoCell : UICollectionViewCell
 
+// Define as public publicly
+// Allows change of properties of image view
+// doesnt allow switching image view itself
+@property (nonatomic, strong, readonly) UIImageView *imageView;
+
 @end

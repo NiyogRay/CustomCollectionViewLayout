@@ -45,47 +45,20 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     self.collectionView.backgroundColor = [UIColor lightGrayColor];
     
     // delegate, dataSource
-//    self.delegate = [LSCollectionViewDelegate new];
-//    self.collectionView.delegate = self.delegate;
-//    
-//    self.dataSource = [LSCollectionViewDataSource new];
-//    self.collectionView.dataSource = self.dataSource;
+    self.delegate = [LSCollectionViewDelegate new];
+    self.collectionView.delegate = self.delegate;
+    
+    self.dataSource = [LSCollectionViewDataSource new];
+    self.collectionView.dataSource = self.dataSource;
     
     // register cell class for identifier
     [self.collectionView registerClass:[LSAlbumPhotoCell class] forCellWithReuseIdentifier:PhotoCellIdentifier];
-    
-    
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-
-
-#pragma mark - UICollectionViewDataSource
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
-{
-    return 10;
-}
-
-
-- (NSInteger)collectionView:(UICollectionView *)collectionView
-     numberOfItemsInSection:(NSInteger)section
-{
-    return 5;
-}
-
-
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
-                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    LSAlbumPhotoCell *photoCell = [collectionView dequeueReusableCellWithReuseIdentifier:PhotoCellIdentifier forIndexPath:indexPath];
-    
-    return photoCell;
 }
 
 
