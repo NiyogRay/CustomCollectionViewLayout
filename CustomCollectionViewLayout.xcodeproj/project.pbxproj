@@ -22,6 +22,7 @@
 		B5E494961992043D00485FA3 /* CustomCollectionViewLayoutTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E494951992043D00485FA3 /* CustomCollectionViewLayoutTests.m */; };
 		B5E494A1199204C700485FA3 /* LSCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E494A0199204C700485FA3 /* LSCollectionViewController.m */; };
 		B5E494A61992052600485FA3 /* LSPhotoAlbumLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E494A51992052600485FA3 /* LSPhotoAlbumLayout.m */; };
+		B5E494AA1992096A00485FA3 /* LSAlbumPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E494A91992096A00485FA3 /* LSAlbumPhotoCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,8 @@
 		B5E494A0199204C700485FA3 /* LSCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LSCollectionViewController.m; path = ../LSCollectionViewController.m; sourceTree = "<group>"; };
 		B5E494A41992052600485FA3 /* LSPhotoAlbumLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPhotoAlbumLayout.h; sourceTree = "<group>"; };
 		B5E494A51992052600485FA3 /* LSPhotoAlbumLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPhotoAlbumLayout.m; sourceTree = "<group>"; };
+		B5E494A81992096A00485FA3 /* LSAlbumPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSAlbumPhotoCell.h; sourceTree = "<group>"; };
+		B5E494A91992096A00485FA3 /* LSAlbumPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSAlbumPhotoCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +118,7 @@
 		B5E494701992043D00485FA3 /* CustomCollectionViewLayout */ = {
 			isa = PBXGroup;
 			children = (
+				B5E494A71992095500485FA3 /* View */,
 				B5E494A31992050B00485FA3 /* Layout */,
 				B5E494A2199204D600485FA3 /* View Controller */,
 				B5E494791992043D00485FA3 /* LSAppDelegate.h */,
@@ -171,6 +175,15 @@
 				B5E494A51992052600485FA3 /* LSPhotoAlbumLayout.m */,
 			);
 			name = Layout;
+			sourceTree = "<group>";
+		};
+		B5E494A71992095500485FA3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B5E494A81992096A00485FA3 /* LSAlbumPhotoCell.h */,
+				B5E494A91992096A00485FA3 /* LSAlbumPhotoCell.m */,
+			);
+			name = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5E494A1199204C700485FA3 /* LSCollectionViewController.m in Sources */,
+				B5E494AA1992096A00485FA3 /* LSAlbumPhotoCell.m in Sources */,
 				B5E494771992043D00485FA3 /* main.m in Sources */,
 				B5E4947B1992043D00485FA3 /* LSAppDelegate.m in Sources */,
 				B5E494A61992052600485FA3 /* LSPhotoAlbumLayout.m in Sources */,
