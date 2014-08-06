@@ -12,9 +12,12 @@
 #import "LSCollectionViewDelegate.h"
 
 #import "LSAlbumPhotoCell.h"
+#import "LSAlbumTitleReusableView.h"
 
 // Cell Identifier
 static NSString * const PhotoCellIdentifier = @"PhotoCell";
+// Album Title Identifier
+static NSString * const AlbumTitleIdentifier = @"AlbumTitle";
 
 @interface LSCollectionViewController ()
 
@@ -41,8 +44,9 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    // background color
-    self.collectionView.backgroundColor = [UIColor lightGrayColor];
+    // background image
+    UIImage *imagePattern = [UIImage imageNamed:@"Concrete Wall"];
+    self.collectionView.backgroundColor = [UIColor colorWithPatternImage:imagePattern];
     
     // delegate, dataSource
     self.delegate = [LSCollectionViewDelegate new];
@@ -53,8 +57,11 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     // TEST
     self.dataSource.collectionView = self.collectionView;
     
-    // register cell class for identifier
+    // register photo cell
     [self.collectionView registerClass:[LSAlbumPhotoCell class] forCellWithReuseIdentifier:PhotoCellIdentifier];
+    
+    // register supplementary view
+    [self.collectionView registerClass:[LSAlbumTitleReusableView class] forSupplementaryViewOfKind:LSPhotoAlbumLayoutAlbumTitleKind withReuseIdentifier:AlbumTitleIdentifier];
 }
 
 - (void)didReceiveMemoryWarning

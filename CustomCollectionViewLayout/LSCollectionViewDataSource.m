@@ -8,6 +8,7 @@
 
 #import "LSCollectionViewDataSource.h"
 #import "LSAlbumPhotoCell.h"
+#import "LSAlbumTitleReusableView.h"
 
 #import "LSAlbum.h"
 #import "LSPhoto.h"
@@ -16,6 +17,8 @@
 
 // Cell Identifier
 static NSString * const PhotoCellIdentifier = @"PhotoCell";
+// Album Title Identifier
+static NSString * const AlbumTitleIdentifier = @"AlbumTitle";
 
 /// Private Interface
 @interface LSCollectionViewDataSource ()
@@ -125,5 +128,20 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     return photoCell;
 }
+
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView
+           viewForSupplementaryElementOfKind:(NSString *)kind
+                                 atIndexPath:(NSIndexPath *)indexPath
+{
+    LSAlbumTitleReusableView *titleView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:AlbumTitleIdentifier forIndexPath:indexPath];
+    
+    LSAlbum *album = self.albums[indexPath.section];
+    
+    titleView.titleLabel.text = album.name;
+    
+    return titleView;
+}
+
 
 @end

@@ -27,6 +27,7 @@
 		B5E494B21992136200485FA3 /* LSCollectionViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E494B11992136200485FA3 /* LSCollectionViewDelegate.m */; };
 		B5E494B81992282D00485FA3 /* LSAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E494B51992282D00485FA3 /* LSAlbum.m */; };
 		B5E494B91992282D00485FA3 /* LSPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E494B71992282D00485FA3 /* LSPhoto.m */; };
+		B5ED345519924738003EF799 /* LSAlbumTitleReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B5ED345419924738003EF799 /* LSAlbumTitleReusableView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,8 @@
 		B5E494B51992282D00485FA3 /* LSAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSAlbum.m; sourceTree = "<group>"; };
 		B5E494B61992282D00485FA3 /* LSPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSPhoto.h; sourceTree = "<group>"; };
 		B5E494B71992282D00485FA3 /* LSPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPhoto.m; sourceTree = "<group>"; };
+		B5ED345319924738003EF799 /* LSAlbumTitleReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSAlbumTitleReusableView.h; sourceTree = "<group>"; };
+		B5ED345419924738003EF799 /* LSAlbumTitleReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSAlbumTitleReusableView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +200,8 @@
 			children = (
 				B5E494A81992096A00485FA3 /* LSAlbumPhotoCell.h */,
 				B5E494A91992096A00485FA3 /* LSAlbumPhotoCell.m */,
+				B5ED345319924738003EF799 /* LSAlbumTitleReusableView.h */,
+				B5ED345419924738003EF799 /* LSAlbumTitleReusableView.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -337,6 +342,7 @@
 				B5E494A61992052600485FA3 /* LSPhotoAlbumLayout.m in Sources */,
 				B5E494AE1992134300485FA3 /* LSCollectionViewDataSource.m in Sources */,
 				B5E494B81992282D00485FA3 /* LSAlbum.m in Sources */,
+				B5ED345519924738003EF799 /* LSAlbumTitleReusableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
