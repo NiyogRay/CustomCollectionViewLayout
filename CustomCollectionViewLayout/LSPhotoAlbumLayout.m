@@ -9,7 +9,7 @@
 #import "LSPhotoAlbumLayout.h"
 
 /// layout cell kind
-static const NSString *LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
+static NSString * const LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
 
 /// Private interface
 @interface LSPhotoAlbumLayout ()
@@ -45,7 +45,7 @@ static const NSString *LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
 
 - (void)setup
 {
-    self.itemInsets = UIEdgeInsetsMake(22., 22., 13., 22.);
+    self.itemInsets = UIEdgeInsetsMake(22.f, 22.f, 13.f, 22.f);
     self.itemSize = CGSizeMake(125., 125.);
     self.interItemSpacingY = 12.;
     self.numberOfColumns = 2;
@@ -72,7 +72,7 @@ static const NSString *LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
         for (NSInteger item = 0; item < itemCount; item++)
         {
             // apply attributes
-            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
             
             UICollectionViewLayoutAttributes *itemAttributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
             
@@ -106,8 +106,10 @@ static const NSString *LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
         spacingX /= (self.numberOfColumns - 1);
     
     // origins
-    CGFloat originX = floor(self.itemInsets.left + self.itemSize.width + spacingX);
-    CGFloat originY = floor((self.itemInsets.top  + self.interItemSpacingY) * row);
+    CGFloat originX = floorf(self.itemInsets.left + (self.itemSize.width + spacingX) * column);
+    
+    CGFloat originY = floor(self.itemInsets.top +
+                            (self.itemSize.height + self.interItemSpacingY) * row);
     
     // frame
     CGRect cellFrame = CGRectMake(originX, originY, self.itemSize.width, self.itemSize.height);
@@ -162,12 +164,12 @@ static const NSString *LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
         rowCount++;
     
     // content height
-    CGFloat height = self.itemInsets.top + rowCount*(self.itemSize.height) + (rowCount-1)*self.interItemSpacingY + self.itemInsets.bottom;
+    CGFloat height = self.itemInsets.top + rowCount*self.itemSize.height + (rowCount-1)*self.interItemSpacingY + self.itemInsets.bottom;
     
     // content width
     CGFloat width = self.collectionView.bounds.size.width;
     
-    CGSize contentSize = CGSizeMake( height, width );
+    CGSize contentSize = CGSizeMake( width, height );
     
     return contentSize;
 }

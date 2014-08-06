@@ -8,10 +8,19 @@
 
 #import "LSCollectionViewController.h"
 #import "LSPhotoAlbumLayout.h"
+#import "LSCollectionViewDataSource.h"
+#import "LSCollectionViewDelegate.h"
+
+#import "LSAlbumPhotoCell.h"
+
+// Cell Identifier
+static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 @interface LSCollectionViewController ()
 
 @property (nonatomic, weak) IBOutlet LSPhotoAlbumLayout *photoAlbumLayout;
+@property (nonatomic, strong) LSCollectionViewDelegate *delegate;
+@property (nonatomic, strong) LSCollectionViewDataSource *dataSource;
 
 @end
 
@@ -26,6 +35,7 @@
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -33,6 +43,18 @@
     
     // background color
     self.collectionView.backgroundColor = [UIColor lightGrayColor];
+    
+    // delegate, dataSource
+//    self.delegate = [LSCollectionViewDelegate new];
+//    self.collectionView.delegate = self.delegate;
+//    
+//    self.dataSource = [LSCollectionViewDataSource new];
+//    self.collectionView.dataSource = self.dataSource;
+    
+    // register cell class for identifier
+    [self.collectionView registerClass:[LSAlbumPhotoCell class] forCellWithReuseIdentifier:PhotoCellIdentifier];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -41,15 +63,30 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+
+#pragma mark - UICOllectionViewDataSource
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    return 10;
 }
-*/
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView
+     numberOfItemsInSection:(NSInteger)section
+{
+    return 5;
+}
+
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    LSAlbumPhotoCell *photoCell = [collectionView dequeueReusableCellWithReuseIdentifier:PhotoCellIdentifier forIndexPath:indexPath];
+    
+    return photoCell;
+}
+
 
 @end

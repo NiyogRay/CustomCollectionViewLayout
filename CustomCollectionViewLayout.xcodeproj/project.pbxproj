@@ -23,6 +23,8 @@
 		B5E494A1199204C700485FA3 /* LSCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E494A0199204C700485FA3 /* LSCollectionViewController.m */; };
 		B5E494A61992052600485FA3 /* LSPhotoAlbumLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E494A51992052600485FA3 /* LSPhotoAlbumLayout.m */; };
 		B5E494AA1992096A00485FA3 /* LSAlbumPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E494A91992096A00485FA3 /* LSAlbumPhotoCell.m */; };
+		B5E494AE1992134300485FA3 /* LSCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E494AD1992134300485FA3 /* LSCollectionViewDataSource.m */; };
+		B5E494B21992136200485FA3 /* LSCollectionViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B5E494B11992136200485FA3 /* LSCollectionViewDelegate.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,10 @@
 		B5E494A51992052600485FA3 /* LSPhotoAlbumLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSPhotoAlbumLayout.m; sourceTree = "<group>"; };
 		B5E494A81992096A00485FA3 /* LSAlbumPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSAlbumPhotoCell.h; sourceTree = "<group>"; };
 		B5E494A91992096A00485FA3 /* LSAlbumPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSAlbumPhotoCell.m; sourceTree = "<group>"; };
+		B5E494AC1992134300485FA3 /* LSCollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCollectionViewDataSource.h; sourceTree = "<group>"; };
+		B5E494AD1992134300485FA3 /* LSCollectionViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCollectionViewDataSource.m; sourceTree = "<group>"; };
+		B5E494B01992136200485FA3 /* LSCollectionViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LSCollectionViewDelegate.h; sourceTree = "<group>"; };
+		B5E494B11992136200485FA3 /* LSCollectionViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LSCollectionViewDelegate.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +124,8 @@
 		B5E494701992043D00485FA3 /* CustomCollectionViewLayout */ = {
 			isa = PBXGroup;
 			children = (
+				B5E494AF1992135100485FA3 /* Delegate */,
+				B5E494AB1992126E00485FA3 /* Data Source */,
 				B5E494A71992095500485FA3 /* View */,
 				B5E494A31992050B00485FA3 /* Layout */,
 				B5E494A2199204D600485FA3 /* View Controller */,
@@ -184,6 +192,24 @@
 				B5E494A91992096A00485FA3 /* LSAlbumPhotoCell.m */,
 			);
 			name = View;
+			sourceTree = "<group>";
+		};
+		B5E494AB1992126E00485FA3 /* Data Source */ = {
+			isa = PBXGroup;
+			children = (
+				B5E494AC1992134300485FA3 /* LSCollectionViewDataSource.h */,
+				B5E494AD1992134300485FA3 /* LSCollectionViewDataSource.m */,
+			);
+			name = "Data Source";
+			sourceTree = "<group>";
+		};
+		B5E494AF1992135100485FA3 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				B5E494B01992136200485FA3 /* LSCollectionViewDelegate.h */,
+				B5E494B11992136200485FA3 /* LSCollectionViewDelegate.m */,
+			);
+			name = Delegate;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,9 +312,11 @@
 			files = (
 				B5E494A1199204C700485FA3 /* LSCollectionViewController.m in Sources */,
 				B5E494AA1992096A00485FA3 /* LSAlbumPhotoCell.m in Sources */,
+				B5E494B21992136200485FA3 /* LSCollectionViewDelegate.m in Sources */,
 				B5E494771992043D00485FA3 /* main.m in Sources */,
 				B5E4947B1992043D00485FA3 /* LSAppDelegate.m in Sources */,
 				B5E494A61992052600485FA3 /* LSPhotoAlbumLayout.m in Sources */,
+				B5E494AE1992134300485FA3 /* LSCollectionViewDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
