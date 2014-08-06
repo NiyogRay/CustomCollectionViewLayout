@@ -8,11 +8,14 @@
 
 #import "LSCollectionViewController.h"
 #import "LSPhotoAlbumLayout.h"
-#import "LSCollectionViewDataSource.h"
-#import "LSCollectionViewDelegate.h"
 
 #import "LSAlbumPhotoCell.h"
 #import "LSAlbumTitleReusableView.h"
+
+#import "LSAlbum.h"
+#import "LSPhoto.h"
+
+#define ALBUM_COUNT 12
 
 // Cell Identifier
 static NSString * const PhotoCellIdentifier = @"PhotoCell";
@@ -22,8 +25,9 @@ static NSString * const AlbumTitleIdentifier = @"AlbumTitle";
 @interface LSCollectionViewController ()
 
 @property (nonatomic, weak) IBOutlet LSPhotoAlbumLayout *photoAlbumLayout;
-@property (nonatomic, strong) LSCollectionViewDelegate *delegate;
-@property (nonatomic, strong) LSCollectionViewDataSource *dataSource;
+
+@property (nonatomic, strong) NSMutableArray *albums;
+@property (nonatomic, strong) NSOperationQueue *thumbnailQueue;
 
 @end
 
@@ -39,6 +43,43 @@ static NSString * const AlbumTitleIdentifier = @"AlbumTitle";
 }
 
 
+- (void)setup
+{
+    self.thumbnailQueue = [NSOperationQueue new];
+    self.thumbnailQueue.maxConcurrentOperationCount = 3;
+    
+    self.albums = [NSMutableArray array];
+    
+    NSURL *urlPrefix = [NSURL URLWithString:@"https://raw.github.com/ShadoFlameX/PhotoCollectionView/master/Photos/"];
+    
+    NSInteger photoIndex = 0;
+    
+    for (NSInteger a = 0; a < ALBUM_COUNT; a++)
+    {
+        LSAlbum *album = [[LSAlbum alloc] init];
+        album.name = [NSString stringWithFormat:@"Photo Album %d", a + 1];
+        
+        NSUInteger photoCount = arc4random_uniform(4) + 2;
+        
+        for (NSInteger p = 0; p < photoCount; p++)
+        {
+            // upto 25 photos available in location
+            NSString *photoFilename = [NSString stringWithFormat:@"thumbnail%d.jpg", photoIndex % 25];
+            
+            NSURL *photoURL = [urlPrefix URLByAppendingPathComponent:photoFilename];
+            
+            LSPhoto *photo = [LSPhoto photoWithImageURL:photoURL];
+            
+            [album addPhoto:photo];
+            
+            photoIndex++;
+        }
+        
+        [self.albums addObject:album];
+    }
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -48,20 +89,13 @@ static NSString * const AlbumTitleIdentifier = @"AlbumTitle";
     UIImage *imagePattern = [UIImage imageNamed:@"Concrete Wall"];
     self.collectionView.backgroundColor = [UIColor colorWithPatternImage:imagePattern];
     
-    // delegate, dataSource
-    self.delegate = [LSCollectionViewDelegate new];
-    self.collectionView.delegate = self.delegate;
-    
-    self.dataSource = [LSCollectionViewDataSource new];
-    self.collectionView.dataSource = self.dataSource;
-    // TEST
-    self.dataSource.collectionView = self.collectionView;
-    
     // register photo cell
     [self.collectionView registerClass:[LSAlbumPhotoCell class] forCellWithReuseIdentifier:PhotoCellIdentifier];
     
     // register supplementary view
     [self.collectionView registerClass:[LSAlbumTitleReusableView class] forSupplementaryViewOfKind:LSPhotoAlbumLayoutAlbumTitleKind withReuseIdentifier:AlbumTitleIdentifier];
+    
+    [self setup];
 }
 
 - (void)didReceiveMemoryWarning
@@ -94,6 +128,71 @@ static NSString * const AlbumTitleIdentifier = @"AlbumTitle";
         self.photoAlbumLayout.numberOfColumns = 2;
         self.photoAlbumLayout.itemInsets = UIEdgeInsetsMake(22., 22., 13., 22.);
     }
+}
+
+
+#pragma mark - UICollectionViewDataSource
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return self.albums.count;
+}
+
+
+- (NSInteger)collectionView:(UICollectionView *)collectionView
+     numberOfItemsInSection:(NSInteger)section
+{
+    LSAlbum *album = self.albums[section];
+    return album.photos.count;
+}
+
+
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                  cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    LSAlbumPhotoCell *photoCell = [collectionView dequeueReusableCellWithReuseIdentifier:PhotoCellIdentifier forIndexPath:indexPath];
+    
+    LSAlbum *album = self.albums[indexPath.section];
+    LSPhoto *photo = album.photos[indexPath.item];
+    
+    // load photos in bg
+//    __weak LSCollectionViewDataSource *weakSelf = self;
+    
+    __weak LSCollectionViewController *weakSelf = self;
+    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+        
+        UIImage *image = [photo image];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([weakSelf.collectionView.indexPathsForVisibleItems containsObject:indexPath])
+            {
+                LSAlbumPhotoCell *photoCell = (LSAlbumPhotoCell *)[weakSelf.collectionView cellForItemAtIndexPath:indexPath];
+                
+                photoCell.imageView.image = image;
+            }
+        });
+    }];
+    
+    // give priority to top photo in album
+    operation.queuePriority = (indexPath.item == 0 ? NSOperationQueuePriorityHigh : NSOperationQueuePriorityNormal);
+    
+    [self.thumbnailQueue addOperation:operation];
+    
+    return photoCell;
+}
+
+
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView
+           viewForSupplementaryElementOfKind:(NSString *)kind
+                                 atIndexPath:(NSIndexPath *)indexPath
+{
+    LSAlbumTitleReusableView *titleView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:AlbumTitleIdentifier forIndexPath:indexPath];
+    
+    LSAlbum *album = self.albums[indexPath.section];
+    
+    titleView.titleLabel.text = album.name;
+    
+    return titleView;
 }
 
 

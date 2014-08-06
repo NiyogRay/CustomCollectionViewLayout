@@ -24,8 +24,8 @@
                             </collectionViewCell>
                         </cells>
                         <connections>
-                            <outlet property="dataSource" destination="T9P-SZ-VeT" id="Aau-6Q-Swq"/>
-                            <outlet property="delegate" destination="T9P-SZ-VeT" id="6gh-J8-gy6"/>
+                            <outlet property="dataSource" destination="T9P-SZ-VeT" id="xsx-qf-6yt"/>
+                            <outlet property="delegate" destination="T9P-SZ-VeT" id="YB6-Tc-BNW"/>
                         </connections>
                     </collectionView>
                     <connections>

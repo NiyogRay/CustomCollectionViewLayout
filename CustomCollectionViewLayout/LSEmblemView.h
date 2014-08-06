@@ -1,13 +1,15 @@
 //
-//  LSCollectionViewDelegate.m
+//  LSEmblemView.h
 //  CustomCollectionViewLayout
 //
 //  Created by Niyog Ray on 06/08/14.
 //  Copyright (c) 2014 LeftShift. All rights reserved.
 //
 
-#import "LSCollectionViewDelegate.h"
+#import <UIKit/UIKit.h>
 
-@implementation LSCollectionViewDelegate
+@interface LSEmblemView : UICollectionReusableView
+
++ (CGSize)defaultSize;
 
 @end

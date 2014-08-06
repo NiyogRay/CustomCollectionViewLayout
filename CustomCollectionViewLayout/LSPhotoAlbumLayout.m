@@ -7,6 +7,7 @@
 //
 
 #import "LSPhotoAlbumLayout.h"
+#import "LSEmblemView.h"
 
 static NSUInteger const RotationCount = 32;
 // use Stride to jump a few rotation values between sections
@@ -21,6 +22,8 @@ static NSString * const LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
 // splitting up the definition & setting
 // ensures consumers use the constant, not the specific value
 NSString * const LSPhotoAlbumLayoutAlbumTitleKind = @"AlbumTitle";
+
+static NSString * const LSPhotoEmblemKind = @"Emblem";
 
 /// Private interface
 @interface LSPhotoAlbumLayout ()
@@ -91,6 +94,10 @@ NSString * const LSPhotoAlbumLayoutAlbumTitleKind = @"AlbumTitle";
     }
     
     _rotations = rotations;
+    
+    
+    // register Decoration View with layout
+    [self registerClass:[LSEmblemView class] forDecorationViewOfKind:LSPhotoEmblemKind];
 }
 
 
@@ -102,6 +109,18 @@ NSString * const LSPhotoAlbumLayoutAlbumTitleKind = @"AlbumTitle";
     NSMutableDictionary *newLayoutInfo = [NSMutableDictionary dictionary];
     NSMutableDictionary *cellLayoutInfo = [NSMutableDictionary dictionary];
     NSMutableDictionary *titleLayoutInfo = [NSMutableDictionary dictionary];
+    
+    // first element
+    NSIndexPath *indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+    
+    // emblem decoration layout
+    {
+        UICollectionViewLayoutAttributes *emblemAttributes = [UICollectionViewLayoutAttributes layoutAttributesForDecorationViewOfKind:LSPhotoEmblemKind withIndexPath:indexPath];
+        
+        emblemAttributes.frame = [self frameForEmblem];
+        
+        newLayoutInfo[LSPhotoEmblemKind] = @{indexPath : emblemAttributes};
+    }
     
     // sectionCount
     NSInteger sectionCount = [self.collectionView numberOfSections];
@@ -115,7 +134,7 @@ NSString * const LSPhotoAlbumLayoutAlbumTitleKind = @"AlbumTitle";
         for (NSInteger item = 0; item < itemCount; item++)
         {
             // apply attributes
-            NSIndexPath *indexPath = [NSIndexPath indexPathForItem:item inSection:section];
+            indexPath = [NSIndexPath indexPathForItem:item inSection:section];
             
             UICollectionViewLayoutAttributes *itemAttributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:indexPath];
             
@@ -233,6 +252,12 @@ atIndexPath:(NSIndexPath *)indexPath
 }
 
 
+- (UICollectionViewLayoutAttributes *)layoutAttributesForDecorationViewOfKind:(NSString *)decorationViewKind atIndexPath:(NSIndexPath *)indexPath
+{
+    return self.layoutInfo[LSPhotoEmblemKind][indexPath];
+}
+
+
 #pragma mark - Overall ContentSize of CollectionView
 
 - (CGSize)collectionViewContentSize
@@ -264,6 +289,17 @@ atIndexPath:(NSIndexPath *)indexPath
     CATransform3D transform = [ self.rotations[ offset % RotationCount ] CATransform3DValue ];
     
     return transform;
+}
+
+
+- (CGRect)frameForEmblem
+{
+    CGSize size = [LSEmblemView defaultSize];
+    
+    CGFloat originX = floorf((self.collectionView.bounds.size.width - size.width) * 0.5f);
+    CGFloat originY = -size.height - 30.0f;
+    
+    return CGRectMake(originX, originY, size.width, size.height);
 }
 
 
