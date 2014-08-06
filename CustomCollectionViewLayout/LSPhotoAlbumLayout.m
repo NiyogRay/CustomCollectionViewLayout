@@ -12,6 +12,10 @@ static NSUInteger const RotationCount = 32;
 // use Stride to jump a few rotation values between sections
 static NSUInteger const RotationStride = 3;
 
+// zIndex. default is 0 for cells, so their ordering is arbitrary
+// Use it to keep cell on top of others.
+static NSUInteger const PhotoCellBaseZIndex = 100;
+
 /// layout cell kind
 static NSString * const LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
 
@@ -115,6 +119,9 @@ static NSString * const LSPhotoAlbumLayoutPhotoCellKind = @"PhotoCell";
             
             // transform
             itemAttributes.transform3D = [self transformForAlbumPhotoAtIndexPath:indexPath];
+            
+            // zIndex
+            itemAttributes.zIndex = PhotoCellBaseZIndex + itemCount - item;
             
             // store attributes by indexPath
             cellLayoutInfo[indexPath] = itemAttributes;
