@@ -23,6 +23,9 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 // hold all the albums
 @property (nonatomic, strong) NSMutableArray *albums;
 
+/// photo Q
+@property (nonatomic, strong) NSOperationQueue *thumbnailQueue;
+
 @end
 
 @implementation LSCollectionViewDataSource
@@ -40,6 +43,9 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
 
 - (void)setup
 {
+    self.thumbnailQueue = [NSOperationQueue new];
+    self.thumbnailQueue.maxConcurrentOperationCount = 3;
+    
     self.albums = [NSMutableArray array];
     
     NSURL *urlPrefix = [NSURL URLWithString:@"https://raw.github.com/ShadoFlameX/PhotoCollectionView/master/Photos/"];
@@ -96,7 +102,23 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     LSAlbum *album = self.albums[indexPath.section];
     LSPhoto *photo = album.photos[indexPath.item];
     
-    photoCell.imageView.image = [photo image];
+    // load photos in bg
+    __weak LSCollectionViewDataSource *weakSelf = self;
+    NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+        
+        UIImage *image = [photo image];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if ([weakSelf.collectionView.indexPathsForVisibleItems containsObject:indexPath])
+            {
+                LSAlbumPhotoCell *photoCell = (LSAlbumPhotoCell *)[weakSelf.collectionView cellForItemAtIndexPath:indexPath];
+                
+                photoCell.imageView.image = image;
+            }
+        });
+    }];
+    
+    [self.thumbnailQueue addOperation:operation];
     
     return photoCell;
 }

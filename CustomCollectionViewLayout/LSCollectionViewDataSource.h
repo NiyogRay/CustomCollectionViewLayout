@@ -10,4 +10,6 @@
 
 @interface LSCollectionViewDataSource : NSObject <UICollectionViewDataSource>
 
+@property (nonatomic, strong) UICollectionView *collectionView;
+
 @end

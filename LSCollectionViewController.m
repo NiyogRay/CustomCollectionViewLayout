@@ -50,6 +50,8 @@ static NSString * const PhotoCellIdentifier = @"PhotoCell";
     
     self.dataSource = [LSCollectionViewDataSource new];
     self.collectionView.dataSource = self.dataSource;
+    // TEST
+    self.dataSource.collectionView = self.collectionView;
     
     // register cell class for identifier
     [self.collectionView registerClass:[LSAlbumPhotoCell class] forCellWithReuseIdentifier:PhotoCellIdentifier];
